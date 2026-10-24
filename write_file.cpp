@@ -2,13 +2,18 @@
 #include <QFile>
 #include <QDataStream>
 #include <QDebug>
+#include <QString>
+#include <QList>
 
 #include "file_header.h"
   
 int main(int argc, char *argv[])
 {
   QFile file("temp.dat");
-  file.open(QIODevice::WriteOnly);
+  if (!file.open(QIODevice::WriteOnly)) {
+    qDebug() << "Error";
+    return EXIT_FAILURE;
+  }
 
   // treat the file as consuming a data stream
   QDataStream out(&file);
@@ -21,8 +26,9 @@ int main(int argc, char *argv[])
   out.setVersion(QDataStream::Qt_5_0);
   
   // write some data
-  QString msg = "This is a test. This is only a test.";
-  out << msg;
+  QList<QString> list;
+  list << "Test" << "Test" << "Testttt.";
+  out << list;
   
   // notify the user that we're finished
   qDebug() << "A data stream has been written to a file.";  

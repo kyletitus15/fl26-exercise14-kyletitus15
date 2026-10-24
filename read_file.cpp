@@ -33,10 +33,10 @@ int main(int argc, char *argv[])
   in.setVersion(QDataStream::Qt_5_0);
 
   // Read the data
-  QString msg;
-  in >> msg;
+  QList<QString> list;
+  in >> list;
 
-  qDebug() << "Read data from a file: " << msg;
+  qDebug() << "Read data from a file: " << list;
   
   return EXIT_SUCCESS;
 }
